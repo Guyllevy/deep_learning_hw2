@@ -11,13 +11,24 @@ math (delimited with $$).
 part1_q1 = r"""
 **Your answer:**
 
+1. $\frac{\partial Y}{\partial X}$:<br>
+    A. for each entry $i,j$ in $Y$ and entry $k,m$ in $X$ there is an entry $\frac{\partial Y_{i,j}}{\partial X_{k,m}}$.<br>
+    so the shape is $(N,D_{out},N,D_{in})$.<br>
+    B. Yes, this Jacobian is sparse. Y's i'th row is only affected by X's i'th row and not it's other rows. (each row in X is an input and the corresponding row in Y is the output). So every entry $(i,j,k,m)$ in the tensor for which $i \neq k$ is zero.
+    C. No. I will show how to calculate $\frac{\partial L}{\partial X}$.<br>
+    $row_i(\delta X) = row_i(\delta Y) @ \frac{\partial (row_i(\delta Y))}{\partial (row_i(\delta X))}$, shapes: $(1,D_{in}) = (1,D_{out}) @ (D_{out},D_{in})$
+    So for $M$ of shape $(N,D_{out},D_{in})$ defined such that $M[i,:,:]$ is $\frac{\partial (row_i(\delta Y))}{\partial (row_i(\delta X))}$ we get 
+    $\delta X = \delta Y @ M$
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+1. $\frac{\partial Y}{\partial W}$:<br>
+    A. for each entry $i,j$ in $Y$ and entry $k,m$ in $W$ there is an entry $\frac{\partial Y_{i,j}}{\partial W_{k,m}}$.<br>
+    so the shape is $(N,D_{out},D_{out},D_{in})$.<br>
+    B. Yes, this Jacobian is sparse. Y's i'th column is only affected by W's i'th row and none of it's other rows. So every entry $(i,j,k,m)$ in the tensor for which $j \neq k$ is zero.
+    C. No. I will show how to calculate $\frac{\partial L}{\partial W}$.<br>
+    $row_i(\delta W) = col_i(\delta Y) @ \frac{\partial (col_i(\delta Y))}{\partial (row_i(\delta W))}$, shapes: $(1,D_{in}) = (1,N) @ (N,D_{in})$
+    So for $M$ of shape $(D_{out},N,D_{in})$ defined such that $M[i,:,:]$ is $\frac{\partial (col_i(\delta Y))}{\partial (row_i(\delta W))}$ we get 
+    $\delta W = \delta Y @ M$
+
 
 """
 
@@ -25,12 +36,7 @@ part1_q2 = r"""
 **Your answer:**
 
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+No, not required, but very handy. Given some MLP we can compute the gradient of the parameters by hand and hardcode their calculations given a batch X,y. but that approach makes it hard to make changes to the architecture, and is not as friendly or modular.
 
 """
 

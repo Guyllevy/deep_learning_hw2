@@ -319,7 +319,15 @@ class CrossEntropyLoss(Layer):
         # TODO: Compute the cross entropy loss using the last formula from the
         #  notebook (i.e. directly using the class scores).
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # x shape (N,num_classes)     y shape (N,)
+        num_classes = x.shape[1] 
+        
+        x_y = x[torch.arange(N),y]
+        
+        sum_exp_x = torch.sum(torch.exp(x), dim = 1)
+        loss_N = - x_y + torch.log(sum_exp_x)
+        
+        loss = torch.mean(loss_N)
         # ========================
 
         self.grad_cache["x"] = x
@@ -338,7 +346,18 @@ class CrossEntropyLoss(Layer):
 
         # TODO: Calculate the gradient w.r.t. the input x.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        num_classes = x.shape[1]
+        
+        exp_x = torch.exp(x)
+        
+        sum_exp_x = exp_x.sum(dim = 1)
+        
+        one_hot = torch.zeros_like(x)
+        one_hot[torch.arange(N), y] = 1
+        
+        dx = (exp_x / sum_exp_x.unsqueeze(1)) - one_hot
+        dx *= 1/N
+        dx *= dout 
         # ========================
 
         return dx
@@ -397,7 +416,9 @@ class Sequential(Layer):
         # TODO: Implement the forward pass by passing each layer's output
         #  as the input of the next.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        out = x
+        for layer in self.layers:
+            out = layer(out, **kw)
         # ========================
 
         return out
@@ -409,7 +430,9 @@ class Sequential(Layer):
         #  Each layer's input gradient should be the previous layer's output
         #  gradient. Behold the backpropagation algorithm in action!
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        din = dout
+        for layer in reversed(self.layers):
+            din = layer.backward(din)
         # ========================
 
         return din
@@ -419,7 +442,8 @@ class Sequential(Layer):
 
         # TODO: Return the parameter tuples from all layers.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        for layer in self.layers:
+            params += layer.params()
         # ========================
 
         return params
@@ -477,7 +501,23 @@ class MLP(Layer):
 
         # TODO: Build the MLP architecture as described.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        if activation != "relu" and activation != "sigmoid":
+                raise ValueError("activation is either 'relu' or 'sigmoid'")
+                
+        features = [in_features, *hidden_features, num_classes]
+        
+        for i in range(len(features) -2):
+            # linear layer
+            layers.append(Linear(features[i], features[i+1]))
+            
+            #non-linearity
+            if activation == "relu":
+                layers.append(ReLU())
+            elif activation == "sigmoid":
+                layers.append(Sigmoid())
+        
+        layers.append(Linear(features[-2], features[-1])) # final fully connected layer
+            
         # ========================
 
         self.sequence = Sequential(*layers)
