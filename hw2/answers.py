@@ -14,7 +14,7 @@ part1_q1 = r"""
 1. $\frac{\partial Y}{\partial X}$:<br>
     A. for each entry $i,j$ in $Y$ and entry $k,m$ in $X$ there is an entry $\frac{\partial Y_{i,j}}{\partial X_{k,m}}$.<br>
     so the shape is $(N,D_{out},N,D_{in})$.<br>
-    B. Yes, this Jacobian is sparse. Y's i'th row is only affected by X's i'th row and not it's other rows. (each row in X is an input and the corresponding row in Y is the output). So every entry $(i,j,k,m)$ in the tensor for which $i \neq k$ is zero.
+    B. Yes, this Jacobian is sparse. Y's i'th row is only affected by X's i'th row and not it's other rows. (each row in X is an input and the corresponding row in Y is the output). So every entry $(i,j,k,m)$ in the tensor for which $i \neq k$ is zero.<br>
     C. No. I will show how to calculate $\frac{\partial L}{\partial X}$.<br>
     $row_i(\delta X) = row_i(\delta Y) @ \frac{\partial (row_i(\delta Y))}{\partial (row_i(\delta X))}$, shapes: $(1,D_{in}) = (1,D_{out}) @ (D_{out},D_{in})$
     So for $M$ of shape $(N,D_{out},D_{in})$ defined such that $M[i,:,:]$ is $\frac{\partial (row_i(\delta Y))}{\partial (row_i(\delta X))}$ we get 
@@ -23,7 +23,7 @@ part1_q1 = r"""
 1. $\frac{\partial Y}{\partial W}$:<br>
     A. for each entry $i,j$ in $Y$ and entry $k,m$ in $W$ there is an entry $\frac{\partial Y_{i,j}}{\partial W_{k,m}}$.<br>
     so the shape is $(N,D_{out},D_{out},D_{in})$.<br>
-    B. Yes, this Jacobian is sparse. Y's i'th column is only affected by W's i'th row and none of it's other rows. So every entry $(i,j,k,m)$ in the tensor for which $j \neq k$ is zero.
+    B. Yes, this Jacobian is sparse. Y's i'th column is only affected by W's i'th row and none of it's other rows. So every entry $(i,j,k,m)$ in the tensor for which $j \neq k$ is zero.<br>
     C. No. I will show how to calculate $\frac{\partial L}{\partial W}$.<br>
     $row_i(\delta W) = col_i(\delta Y) @ \frac{\partial (col_i(\delta Y))}{\partial (row_i(\delta W))}$, shapes: $(1,D_{in}) = (1,N) @ (N,D_{in})$
     So for $M$ of shape $(D_{out},N,D_{in})$ defined such that $M[i,:,:]$ is $\frac{\partial (col_i(\delta Y))}{\partial (row_i(\delta W))}$ we get 
@@ -49,7 +49,7 @@ def part2_overfit_hp():
     wstd, lr, reg = 0, 0, 0
     # TODO: Tweak the hyperparameters until you overfit the small dataset.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    wstd, lr, reg = 0.01, 0.05, 0.02
     # ========================
     return dict(wstd=wstd, lr=lr, reg=reg)
 
@@ -66,7 +66,13 @@ def part2_optim_hp():
     # TODO: Tweak the hyperparameters to get the best results you can.
     # You may want to use different learning rates for each optimizer.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    wstd, lr_vanilla, lr_momentum, lr_rmsprop, reg, = (
+        0.01,
+        0.005,
+        0.004,
+        0.004,
+        0.02,
+    )
     # ========================
     return dict(
         wstd=wstd,
