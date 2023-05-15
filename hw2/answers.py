@@ -100,52 +100,70 @@ def part2_dropout_hp():
 part2_q1 = r"""
 **Your answer:**
 
+1. Compared to the models trained without dropout, I expected that the models trained with dropout will outperform the former on the test set while achieveing worse results on the traning set.<br>
+In other words I expected the former model to overfit, and the later to generalize better compared.<br>
+That didnt quite occur in my run.<br>
+As we can see in the graphs the model trained without dropout did in fact overfit, but still got better results on the test set than the results achieved by the models trained with dropout.<br>
+My guess as to the source of this behaviour is low learning rate or too little training epochs as we can see that the test accuracy of the dropout models are in a good trend compared to the model without dropout.
+<br><br>
+2. Comparing low dropout to high dropout, I expected to see better generalization from the high setting, and faster training from the low setting. Though its hard to guess exactly what setting will perform better.<br>
+Again here, the graph doesnt reflect the behaviour I expected, as both setting perform quite similarly and its hard to tell them apart.<br>
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
 part2_q2 = r"""
 **Your answer:**
 
+Yes, it is possible.
+The cross entropy loss is considering only the score the model gave to the correct class.<br>
+We can imagen some situation in which out model is predicting correctly some label y1 (in the test set) with high confidence.<br>
+We then perform gradient step with some batch, and it's possible that after the update, for the given label y1, we predict it with lower confidence and thus get higher loss while predicting the same.<br>
+Though after this update it is also likely that the prediction of some other label y2 turned from a bad prediction to a correct one.<br>
+Overall, in this (possible) scenario, after some optimizer step we get worse loss on the test set, while getting better accuracy.<br>
+While I have described a scenario that happens over some batch step, we can see how this is possible even with a whole epoch using the same logic.<br>
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
 part2_q3 = r"""
 **Your answer:**
 
+1. Back propagation is the process by which we calculate the gradients of the loss with respect to the model parameters.<br>
+Gradient descent is the process by which we use this gradient to update the model parameters to obtain a model with lower loss and thus better performace.<br>
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+2. In gradient descent (GD) we update the model based on the gradient of the loss with respect to the entire training set.<br>
+This results in each step being clean (not noisy) and so we get rather consistent improvement in the loss.<br>
+Though this method is hardly used because computing the gradient on the entire training set for each step is computationally not feasable mainly because, usually, the training set is too large to fit in memory.<br>
+Stochastic Gradient Descent is similar in general with the difference of only calculating the gradient of the loss with respect to some (small) batch of training data. this results in noisy gradients, but is much faster for each step and turns out to get us faster optimization over all then regular GD.<br>
+
+3. like we mentioned in (2) SGD is much faster than GD because in each step it only calculates the gradient with respect to loss of some small batch of data.<br>
+Also because we are constantly changing the samples we compute the loss with, we get a dynamic error surface that is believed to help the optimizer get out of flat regions or sharp local minima since these features may disappear in the loss surface of subsequent batches.<br>
+
+4. A. Yes, considering he divides each loss of some set by the number of total sets before summing the gradients, he should get exactly the same result.<br>
+this is because the loss on the entire training set is the mean of losses of all the samples, and because the derivating operation is linear the sum of gradients will indeed be the gradient of the sum.<br>
+B. could be that the previous batches werent cleared from memory after their subsequent use.<br>
+
 
 """
 
 part2_q4 = r"""
 **Your answer:**
 
+1.A. In forward mode AD on a computational graph of a functions as described in the question we initialize grad of the input node to be 1 and for each subsequent node calculate its derivative with respect to the value from the node before it.<br>
+We then achieve each node's grad by multipling this kept derivative with the grad of the node before it.<br>
+While in the regular algorithm we keep all the grad fields of all the nodes, we can keep only the grad of the node which came before the node which we currently are computing the grad field for.<br>
+We can thus calculate the grad fields in parallel to calculating the forward pass, keeping also just the last node's val field and overall achieveing space complexity of O(1).<br>
+B. In backward mode AD we initialize grad = 1 in the output node, and for each previous node calculate the outputs derivative with respect to its own val.<br>
+similarly to A - to optimize for space - we can keep only the grad of the node which comes after the node which we are computing the grad for.<br>
+Though an optimization of the val field space in memory is impossible because we need the val fields for all the nodes to be stored before starting the backwards pass.<br>
+so overall even after the optimization we get space complexity of O(n).<br><br>
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+2. Yes, we can maintain the grad field only for nodes which all their upstream / downstream (depending on forward or backward AD) grads have yet to be calculated.<br>
+Though the complexity is not promised to be O(1) even in the forward AD suggested method.<br><br>
+
+3. deep architectures have deep computation graphs and thus keeping for each node val, grad fields becomes expensive.<br>
+using those techniques might be crucial to train those networks without running out of memory.<br>
 
 """
 
