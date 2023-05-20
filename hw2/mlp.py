@@ -55,7 +55,26 @@ class MLP(nn.Module):
         #  - Either instantiate the activations based on their name or use the provided
         #    instances.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        super().__init__()
+        layers = []
+        
+        all_dims = [in_dim] + dims
+        
+        for i in range(len(all_dims) -1):
+            
+            layers.append(nn.Linear(all_dims[i],all_dims[i+1]))
+            
+            nonlinearity = None
+            if type(nonlins[i]) != str:
+                nonlinearity = nonlins[i]
+            elif nonlins[i] in ["softmax","logsoftmax"]:
+                nonlinearity = ACTIVATIONS[nonlins[i]](dim = 1)
+            else:
+                nonlinearity = ACTIVATIONS[nonlins[i]]()
+                
+            layers.append(nonlinearity)
+            
+        self.sequence = nn.Sequential(*layers)
         # ========================
 
     def forward(self, x: Tensor) -> Tensor:
@@ -66,5 +85,9 @@ class MLP(nn.Module):
         # TODO: Implement the model's forward pass. Make sure the input and output
         #  shapes are as expected.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        assert x.shape[1] == self.in_dim
+        y = self.sequence(x)
+        assert y.shape[0] == x.shape[0]
+        assert y.shape[1] == self.out_dim
+        return y
         # ========================
