@@ -214,40 +214,43 @@ def part3_optim_hp():
 
 part3_q1 = r"""
 **Your answer:**
-
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+1. Optimization error: not high. we can see our model got good accuracy on the training set.
+2. Generalization error: a bit high. the test error keeps trending up throughout which suggests no overfitting. but even though we get high accuracy on the training set, the accuracy on the test set is quite lower.
+3. Approximation error: not high. based on the decision boundry we can see the model approximates the underlying distribution quite well.
 
 """
 
 part3_q2 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
+We remember how we generated the training and validation sets:<br>
+We created data from two different distributions <br>
+Distribution 1: make_moons turned by 10 degrees <br>
+Distribution 2: make_moons turned by 50 degrees <br>
+<br>
+Then we split:<br>
+X_train, X_valid, y_train, y_valid = train_test_split(X[:N_train, :], y[:N_train], test_size=1/3, shuffle=False)<br>
+<br>
+Which means overall we had 4000 from distribution 1 and 4000 from distribution 2.<br>
+Now because X_train takes 5333 examples we get in it 4000 from the distribution 1 and 1333 from distribution 2.<br>
+While the X_valid set takes 2667 examples from distribution 2.<br>
+Now we see the validation set has more examples turned by more degrees. <br>
+So the classifier trained on the training set, is used to seeing examples turned less.<br>
+Testing the classifier on the validation set, from visualiaing the graphs, I suspect the classifier will have alot of mistakes of The False negative kind. (predict 0 for class 1 examples)<br>
 """
 
 part3_q3 = r"""
 **Your answer:**
 
+You're training a binary classifier screening of a large cohort of patients for some disease, with the aim to detect the disease early, before any symptoms appear. You train the model on easy-to-obtain features, so screening each individual patient is simple and low-cost. In case the model classifies a patient as sick, she must then be sent to furhter testing in order to confirm the illness. Assume that these further tests are expensive and involve high-risk to the patient. Assume also that once diagnosed, a low-cost treatment exists.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+You wish to screen as many people as possible at the lowest possible cost and loss of life. Would you still choose the same "optimal" point on the ROC curve as above? If not, how would you choose it? Answer these questions for two possible scenarios:
+
+A person with the disease will develop non-lethal symptoms that immediately confirm the diagnosis and can then be treated.
+A person with the disease shows no clear symptoms and may die with high probability if not diagnosed early enough, either by your model or by the expensive test.
+Explain your answers.
+
+
 
 """
 
