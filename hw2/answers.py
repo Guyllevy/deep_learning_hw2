@@ -242,14 +242,14 @@ Testing the classifier on the validation set, from visualiaing the graphs, I sus
 part3_q3 = r"""
 **Your answer:**
 
-You're training a binary classifier screening of a large cohort of patients for some disease, with the aim to detect the disease early, before any symptoms appear. You train the model on easy-to-obtain features, so screening each individual patient is simple and low-cost. In case the model classifies a patient as sick, she must then be sent to furhter testing in order to confirm the illness. Assume that these further tests are expensive and involve high-risk to the patient. Assume also that once diagnosed, a low-cost treatment exists.
-
-You wish to screen as many people as possible at the lowest possible cost and loss of life. Would you still choose the same "optimal" point on the ROC curve as above? If not, how would you choose it? Answer these questions for two possible scenarios:
-
-A person with the disease will develop non-lethal symptoms that immediately confirm the diagnosis and can then be treated.
-A person with the disease shows no clear symptoms and may die with high probability if not diagnosed early enough, either by your model or by the expensive test.
-Explain your answers.
-
+First scenario: A person with the disease will develop non-lethal symptoms that immediately confirm the diagnosis and can then be treated.<br>
+In this case we will care more about not diagnosing a healthy patient as sick. Thats because the tests afterwards are expensive, and if he is indeed sick and we diagnosed him wrong, the non-lethal symptoms will appear and he will get help then.<br>
+To conclude scenario 1, we would like to choose a point on the roc curve which corresponds to lower false positives then false negatives.<br>
+<br>
+Second scenario: A person with the disease shows no clear symptoms and may die with high probability if not diagnosed early enough, either by your model or by the expensive test.<br>
+In this case, since there is a large chance for an infected person to die, we will care much more about having less false negatives. Thats because each false negative is a person who is sick but does not get treated, which puts him at high risk of dying. To compare, a false positive will only cost us in further testing money, but not in life.<br>
+To conclude scenatio 2, we would like to choose a point on the roc curve which corresponds to lower false negatives the false positives.<br>
+<br>
 
 
 """
@@ -258,14 +258,17 @@ Explain your answers.
 part3_q4 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
+1. As the width increased, the model had more parameters and increased representational capacity. This led to decision boundaries that became more complex and flexible. The model performance improved with increasing width, as it could capture more intricate patterns in the data. However, at a certain point, further increasing the width did not significantly enhance performance and may have led to overfitting.<br>
+<br>
+2. As the depth increased, the model had more layers and increased the ability to capture hierarchical representations of the data. Model performance improved with increasing depth, as the model could capture more abstract features and interactions between variables. However, similar to the columns analysis, there was a point where further increasing depth did not result in significant performance gains and may have increased computational complexity.<br>
+<br>
+3. I would have expected the configuration with depth=1 and width=32 is likely to have worse performance because, while having the same number of parameters as the configuration with depth=4 and width=8, it is shallow and missing the notion of depth which usually helps the neural net be more expressive.<br>
+The actual result though, was that the configuration with depth=1 and width=32 did better.<br>
+I assume that is because our data is only 2 dimentional and does not require complex feature extraction.<br>
+<br>
+4. The experiment did not include evaluation on the test set without selecting thresholds.<br>
+I would assume it did contribute to the performance on the test set, as we saw it improves results on the validation set in the previous sections of the notebook.<br>
+<br>
 """
 # ==============
 # Part 4 (CNN) answers
