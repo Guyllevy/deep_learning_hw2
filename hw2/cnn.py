@@ -84,9 +84,9 @@ class CNN(nn.Module):
         P = self.pool_every
         
         if self.activation_type == 'relu':
-            non_lin_class = nn.ReLU
+            self.non_lin_class = nn.ReLU
         elif self.activation_type == 'lrelu':
-            non_lin_class = nn.LeakyReLU
+            self.non_lin_class = nn.LeakyReLU
         else:
             raise ValueError()
         
@@ -104,14 +104,14 @@ class CNN(nn.Module):
             for j in range(P):
                 # add layers: CONV, ACT
                 layers.append(nn.Conv2d(all_channels[j + i*P], all_channels[j + i*P + 1], **self.conv_params))
-                layers.append(non_lin_class(**self.activation_params))
+                layers.append(self.non_lin_class(**self.activation_params))
             # add POOL
             layers.append(pooling_class(**self.pooling_params))
             
         for k in range(N%P): # add leftover layers without pooling
             # add layers: CONV, ACT
             layers.append(nn.Conv2d(all_channels[P*(N//P) + k], all_channels[P*(N//P) + k + 1], **self.conv_params))
-            layers.append(non_lin_class(**self.activation_params))
+            layers.append(self.non_lin_class(**self.activation_params))
             
         # ========================
         seq = nn.Sequential(*layers)
@@ -148,8 +148,12 @@ class CNN(nn.Module):
         # ====== YOUR CODE: ======
         M = len(self.hidden_dims)
         dims = self.hidden_dims + [self.out_classes]
-        
-        mlp = MLP(in_dim = self._n_features(), dims = dims, nonlins = [self.activation_type]*M + ['none'])
+        nonlins = []
+        for i in range(M):
+            nonlins.append(self.non_lin_class(**self.activation_params))
+        nonlins.append(nn.Identity())
+            
+        mlp = MLP(in_dim = self._n_features(), dims = dims, nonlins = nonlins)
         # ========================
         return mlp
 
