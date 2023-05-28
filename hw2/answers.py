@@ -295,13 +295,35 @@ def part4_optim_hp():
 part4_q1 = r"""
 **Your answer:**
 
+1. Lets count the number of parameters for each block as described:<br>
+<br>
+Regular residual block:<br>
+2 layers of 256(kernels) * (256*3*3 + 1)(parameters / kernel)<br>
+so overall 2*256*(256*3*3 + 1) = 1,180,160 parameters.<br>
+<br>
+Bottleneck residual block:<br>
+first layer:  64(kernels)  * (256*1*1 + 1)(parameters / kernel)<br>
+second layer: 64(kernels)  * (64*3*3  + 1)(parameters / kernel)<br>
+third layer:  256(kernels) * (64*1*1  + 1)(parameters / kernel)<br>
+overall 70,016 parameters<br>
+<br>
+2. Number of floating point operations (assuming 256 x N x N input).<br>
+<br>
+Regular residual block:<br> 
+first layer: 256(kernels) * N^2(inner products / kernel) * 256*3*3(floating point ops / inner product)<br>
+second layer the same numbers, so overall about 1,179,648 * N^2 floating point operations.<br>
+<br>
+Bottleneck residual block:<br>
+first layer: 64(kernels) * N^2(inner products / kernel) * 256*1*1(floating point ops / inner product)<br>
+second layer: 64(kernels) * N^2(inner products / kernel) * 64*3*3(floating point ops / inner product)<br>
+third layer: 256(kernels) * N^2(inner products / kernel) * 64*1*1(floating point ops / inner product)<br>
+overall about 69,632 * N^2 floating point operations.<br>
+<br>
+3. Ability to combine the input:<br>
+(1) Spatialy: In the regular residual block, we perform 2 3x3 convoluvtions compared to 1 in the bottleneck block, and so we get more spatial spread of information in the regular block. Though that is not inherent to the bottleneck block as we could have added another 3x3 convolution in the 64 channel domain while still performing much less operations than the regular residual block.<br>
+(2) Across feature maps: We get the same spread across feature maps. Thats because all feature maps from some layer gets information from all feature maps of the previous layer. And that is true in both the regular redsidual block and the bottleneck residual block.<br>
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+
 
 """
 

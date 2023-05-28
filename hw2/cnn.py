@@ -360,34 +360,27 @@ class ResNet(CNN):
                                             batchnorm = self.batchnorm, dropout = self.dropout))
                 # add POOL
                 layers.append(pooling_class(**self.pooling_params))
+                
+        else:
+            # add first layers: ->(CONV -> ACT)*P -> POOL
+            layers.append(ResidualBlock(in_channels, self.channels[0: P], [3]*P,
+                                            activation_type = self.activation_type, activation_params = activation_params,
+                                            batchnorm = self.batchnorm, dropout = self.dropout))
+            layers.append(pooling_class(**self.pooling_params))
+            
+            for i in range(1,N//P):
+                # add layers: (CONV -> ACT)*P -> POOL
+                layers.append(ResidualBottleneckBlock(self.channels[i*P], self.channels[i*P + 1: (i+1)*P -1], [3]*(P-2),
+                                            activation_type = self.activation_type, activation_params = activation_params,
+                                            batchnorm = self.batchnorm, dropout = self.dropout))
 
-            if N%P != 0:
+                layers.append(pooling_class(**self.pooling_params))
+
+        # left over layer for both cases (bottleneck / not bottleneck)
+        if N%P != 0:
                 layers.append(ResidualBlock(all_channels[(N//P) * P], all_channels[(N//P) * P + 1: N + 1], [3]*(N%P),
                                             activation_type = self.activation_type, activation_params = activation_params,
                                             batchnorm = self.batchnorm, dropout = self.dropout))
-                
-        else:                     
-            for i in range(N//P):
-                # add layers: (CONV -> ACT)*P -> POOL
-                if self.channels[i*P] == self.channels[(i+1)*P -1]:
-                    layers.append(ResidualBottleneckBlock(self.channels[i*P], self.channels[i*P: (i+1)*P], [3]*P,
-                                                activation_type = self.activation_type, activation_params = activation_params,
-                                                batchnorm = self.batchnorm, dropout = self.dropout))
-                else:
-                    layers.append(ResidualBlock(all_channels[i*P], all_channels[i*P + 1: (i+1)*P + 1], [3]*P,
-                                            activation_type = self.activation_type, activation_params = activation_params,
-                                            batchnorm = self.batchnorm, dropout = self.dropout))
-                    
-                # add POOL
-                layers.append(pooling_class(**self.pooling_params))
-
-            if N%P != 0:
-                layers.append(ResidualBottleneckBlock(all_channels[(N//P) * P], all_channels[(N//P) * P + 1: N], [3]*(N%P -1),
-                                            activation_type = self.activation_type, activation_params = activation_params,
-                                            batchnorm = self.batchnorm, dropout = self.dropout))
-                
-            
-        
         # ========================
         seq = nn.Sequential(*layers)
         return seq
