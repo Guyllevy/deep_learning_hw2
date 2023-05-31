@@ -1,0 +1,36 @@
+Running command: python -m hw2.experiments run-exp -n exp1_4_L8_K32 -K 32 -L 8 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L8_K32', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L8_K32_L8_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_4_L16_K32 -K 32 -L 16 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=16, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L16_K32', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L16_K32_L16_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_4_L32_K32 -K 32 -L 32 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=32, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L32_K32', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L32_K32_L32_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_4_L2_K64-128-256 -K 64 128 256 -L 2 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64, 128, 256], hidden_dims=[100], layers_per_block=2, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L2_K64-128-256', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L2_K64-128-256_L2_K64-128-256.json written
+Running command: python -m hw2.experiments run-exp -n exp1_4_L4_K64-128-256 -K 64 128 256 -L 4 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64, 128, 256], hidden_dims=[100], layers_per_block=4, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L4_K64-128-256', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L4_K64-128-256_L4_K64-128-256.json written
+Running command: python -m hw2.experiments run-exp -n exp1_4_L8_K64-128-256 -K 64 128 256 -L 8 -P 4 -H 100 -M resnet
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64, 128, 256], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='resnet', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_4_L8_K64-128-256', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_4_L8_K64-128-256_L8_K64-128-256.json written

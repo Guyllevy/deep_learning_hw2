@@ -220,16 +220,20 @@ class ResidualBlock(nn.Module):
             
         main_layers = []
         
-        for i in range(len(channels) -1):
-            # CONV, DROPOUT, BATCHNORM, RELU
-            main_layers.append(nn.Conv2d(all_channels[i], all_channels[i+1], kernel_sizes[i], stride = 1,                   padding = kernel_sizes[i]//2))
-            if dropout:
-                main_layers.append(nn.Dropout2d(dropout))
-            if batchnorm == True:
-                main_layers.append(nn.BatchNorm2d(all_channels[i+1]))
-            main_layers.append(non_lin_class(**activation_params))
+        if len(channels) == 1:
+            main_layers.append(nn.Conv2d(all_channels[0], all_channels[1], kernel_sizes[0], stride = 1,padding = kernel_sizes[0]//2))
             
-        main_layers.append(nn.Conv2d(channels[-2], channels[-1], kernel_sizes[-1], stride = 1, padding = kernel_sizes[-1]//2))
+        else:
+            for i in range(len(channels) -1):
+                # CONV, DROPOUT, BATCHNORM, RELU
+                main_layers.append(nn.Conv2d(all_channels[i], all_channels[i+1], kernel_sizes[i], stride = 1,padding = kernel_sizes[i]//2))
+                if dropout:
+                    main_layers.append(nn.Dropout2d(dropout))
+                if batchnorm == True:
+                    main_layers.append(nn.BatchNorm2d(all_channels[i+1]))
+                main_layers.append(non_lin_class(**activation_params))
+
+            main_layers.append(nn.Conv2d(channels[-2], channels[-1], kernel_sizes[-1], stride = 1, padding = kernel_sizes[-1]//2))
         
         self.main_path = nn.Sequential(*main_layers)
         

@@ -86,11 +86,11 @@ class Trainer(abc.ABC):
             
             train_result = self.train_epoch(dl_train,verbose = verbose)
             train_loss += train_result.losses
-            train_acc.append(train_result.accuracy)
+            train_acc.append(int(train_result.accuracy))
             
             test_result = self.test_epoch(dl_test,verbose = verbose)
             test_loss += test_result.losses
-            test_acc.append(test_result.accuracy)
+            test_acc.append(int(test_result.accuracy))
 
             # ========================
 
@@ -103,12 +103,15 @@ class Trainer(abc.ABC):
             if best_acc is None or test_result.accuracy > best_acc:
                 # ====== YOUR CODE: ======
                 best_acc = test_result.accuracy
+                epochs_without_improvement = 0
                 if checkpoints is not None:
-                    torch.save(self.model, checkpoints)
+                    self.save_checkpoint(checkpoints)
                 # ========================
             else:
                 # ====== YOUR CODE: ======
-                pass
+                epochs_without_improvement += 1
+                if early_stopping is not None and epochs_without_improvement >= early_stopping:
+                    break
                 # ========================
 
         return FitResult(actual_num_epochs, train_loss, train_acc, test_loss, test_acc)
@@ -275,8 +278,8 @@ class ClassifierTrainer(Trainer):
         batch_loss.backward()
         self.optimizer.step()
         
-        num_correct = int(torch.where(self.model.classify(X) == y, torch.tensor(1), torch.tensor(0)).sum())
-        batch_loss = batch_loss.detach()
+        num_correct = int(torch.where(self.model.classify(X) == y, torch.tensor(1).to(self.device), torch.tensor(0).to(self.device)).sum())
+        batch_loss = float(batch_loss.detach())
         # ========================
 
         return BatchResult(batch_loss, num_correct)
@@ -297,9 +300,9 @@ class ClassifierTrainer(Trainer):
             #  - Calculate number of correct predictions
             # ====== YOUR CODE: ======
             y_pred = self.model(X)
-            batch_loss = self.loss_fn(y_pred, y)
+            batch_loss = float(self.loss_fn(y_pred, y))
             
-            num_correct = int(torch.where(self.model.classify(X) == y, torch.tensor(1), torch.tensor(0)).sum())
+            num_correct = int(torch.where(self.model.classify(X) == y, torch.tensor(1).to(self.device), torch.tensor(0).to(self.device)).sum())
             # ========================
 
         return BatchResult(batch_loss, num_correct)
@@ -344,7 +347,7 @@ class LayerTrainer(Trainer):
         # TODO: Evaluate the Layer model on one batch of data.
         # ====== YOUR CODE: ======
         pred = self.model(torch.flatten(X, start_dim = 1))
-        loss = self.loss_fn(pred,y)
+        loss = float(self.loss_fn(pred,y))
         y_pred = torch.argmax(pred, dim = 1)
         correct = torch.where(y == y_pred, 1, 0)
         num_correct = int(torch.sum(correct))

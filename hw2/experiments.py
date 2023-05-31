@@ -86,6 +86,8 @@ def cnn_experiment(
     hidden_dims=[1024],
     model_type="cnn",
     # You can add extra configuration for your experiments here
+    conv_params = dict(kernel_size = 3, stride = 1, padding = 1),
+    pooling_params = dict(kernel_size = 2, stride = 1),
     **kw,
 ):
     """
@@ -122,7 +124,32 @@ def cnn_experiment(
     #   for you automatically.
     fit_res = None
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+
+    dl_train = DataLoader(ds_train, shuffle=True, num_workers=0, batch_size=bs_train)
+    dl_valid = DataLoader(ds_test, shuffle=True, num_workers=0, batch_size=bs_test)
+    
+    model = None # create model
+    channels = [f for f in filters_per_layer for j in range(layers_per_block)]
+    in_size = ds_train[0][0].shape
+    
+    if model_type == "cnn":
+        model = CNN(in_size=in_size, out_classes=10, channels = channels, pool_every = pool_every, hidden_dims = hidden_dims,
+                    conv_params = conv_params, pooling_params = pooling_params)
+
+    elif model_type == "resnet":  
+        model = ResNet(in_size=in_size, out_classes=10, channels = channels, pool_every = pool_every, hidden_dims = hidden_dims,
+                    conv_params = conv_params, pooling_params = pooling_params, batchnorm = False, dropout = 0.0, bottleneck = False)
+
+    model = model.to(device)
+    
+    classifier = ArgMaxClassifier(model)
+    
+    optimizer = torch.optim.SGD(params=model.parameters(), lr=0.001, momentum=0.99)
+    
+    trainer = ClassifierTrainer(classifier, torch.nn.functional.cross_entropy, optimizer, device = device)
+    
+    fit_res = trainer.fit(dl_train, dl_valid, num_epochs=epochs, print_every=0, verbose = False)
+
     # ========================
 
     save_experiment(run_name, out_dir, cfg, fit_res)

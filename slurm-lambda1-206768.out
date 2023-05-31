@@ -1,0 +1,4 @@
+*** SLURM BATCH JOB 'test_job' STARTING ***
+*** Activating environment cs236781-hw ***
+[NbConvertApp] Converting notebook Part2_Optimization.ipynb to notebook
+slurmstepd: error: *** JOB 206768 ON lambda1 CANCELLED AT 2023-05-15T00:11:47 ***
