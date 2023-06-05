@@ -1,0 +1,108 @@
+Running command: python -m hw2.experiments run-exp -n exp1_2_L2_K32 -K [32] -L 2 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[32]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L2_K64 -K [64] -L 2 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[64]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L2_K128 -K [128] -L 2 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[128]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L4_K32 -K [32] -L 4 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[32]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L4_K64 -K [64] -L 4 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[64]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L4_K128 -K [128] -L 4 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[128]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L8_K32 -K [32] -L 8 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[32]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L8_K64 -K [64] -L 8 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[64]'
+Running command: python -m hw2.experiments run-exp -n exp1_2_L8_K128 -K [128] -L 8 -P 4 -H 100
+usage: experiments.py run-exp [-h] --run-name RUN_NAME [--out-dir OUT_DIR]
+                              [--seed SEED] [--device DEVICE]
+                              [--bs-train BATCH_SIZE] [--bs-test BATCH_SIZE]
+                              [--batches BATCHES] [--epochs EPOCHS]
+                              [--early-stopping EARLY_STOPPING]
+                              [--checkpoints CHECKPOINTS] [--lr LR]
+                              [--reg REG] --filters-per-layer K [K ...]
+                              --layers-per-block L --pool-every P
+                              --hidden-dims H [H ...]
+                              [--model-type {cnn,resnet}]
+experiments.py run-exp: error: argument --filters-per-layer/-K: invalid int value: '[128]'

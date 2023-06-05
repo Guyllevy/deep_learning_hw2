@@ -1,0 +1,48 @@
+Running command: python -m hw2.experiments run-exp -n exp1_1 -K 32 -L 16 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=16, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_1', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_1_L16_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_1 -K 32 -L 8 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_1', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_1_L8_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_1 -K 64 -L 16 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64], hidden_dims=[100], layers_per_block=16, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_1', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_1_L16_K64.json written
+Running command: python -m hw2.experiments run-exp -n exp1_1 -K 64 -L 8 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_1', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_1_L8_K64.json written
+Running command: python -m hw2.experiments run-exp -n exp1_2 -K 32 -L 8 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[32], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_2', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_2_L8_K32.json written
+Running command: python -m hw2.experiments run-exp -n exp1_2 -K 64 -L 8 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_2', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_2_L8_K64.json written
+Running command: python -m hw2.experiments run-exp -n exp1_2 -K 128 -L 8 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[128], hidden_dims=[100], layers_per_block=8, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_2', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_2_L8_K128.json written
+Running command: python -m hw2.experiments run-exp -n exp1_3 -K 64 128 -L 4 -P 4 -H 100
+*** Starting cnn_experiment with config:
+Namespace(batches=100, bs_test=None, bs_train=128, checkpoints=None, device=None, early_stopping=3, epochs=100, filters_per_layer=[64, 128], hidden_dims=[100], layers_per_block=4, lr=0.001, model_type='cnn', out_dir='./results', pool_every=4, reg=0.001, run_name='exp1_3', seed=None)
+Files already downloaded and verified
+Files already downloaded and verified
+*** Output file ./results/exp1_3_L4_K64-128.json written
