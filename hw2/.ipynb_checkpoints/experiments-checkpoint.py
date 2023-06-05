@@ -125,8 +125,13 @@ def cnn_experiment(
     fit_res = None
     # ====== YOUR CODE: ======
 
-    dl_train = DataLoader(ds_train, shuffle=True, num_workers=0, batch_size=bs_train)
-    dl_valid = DataLoader(ds_test, shuffle=True, num_workers=0, batch_size=bs_test)
+    top_sample_train = min(len(ds_train)-1,batches*bs_train)
+    sliced_ds_train = torch.utils.data.Subset(ds_train, range(top_sample_train))
+    top_sample_test = min(len(ds_test)-1,batches*bs_test)
+    sliced_ds_test = torch.utils.data.Subset(ds_test, range(top_sample_test))
+    
+    dl_train = DataLoader(sliced_ds_train, shuffle=True, num_workers=0, batch_size=bs_train)
+    dl_valid = DataLoader(sliced_ds_test, shuffle=True, num_workers=0, batch_size=bs_test)
     
     model = None # create model
     channels = [f for f in filters_per_layer for j in range(layers_per_block)]
@@ -144,11 +149,11 @@ def cnn_experiment(
     
     classifier = ArgMaxClassifier(model)
     
-    optimizer = torch.optim.SGD(params=model.parameters(), lr=0.001, momentum=0.99)
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=lr, weight_decay=reg)
     
     trainer = ClassifierTrainer(classifier, torch.nn.functional.cross_entropy, optimizer, device = device)
     
-    fit_res = trainer.fit(dl_train, dl_valid, num_epochs=epochs, print_every=0, verbose = False)
+    fit_res = trainer.fit(dl_train, dl_valid, num_epochs=epochs, early_stopping = early_stopping, print_every=0, verbose = False)
 
     # ========================
 
